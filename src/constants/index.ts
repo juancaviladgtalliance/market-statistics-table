@@ -13,10 +13,6 @@ export const monthRanges: monthRangesType = {
     label: "6-12 Months Back",
     value: 12,
   },
-  24: {
-    label: "12-24 Months Back",
-    value: 24,
-  },
 };
 export const propertyTypes: PropertyStyles = {
   condos: {
@@ -51,10 +47,6 @@ export const priceRanges = {
     label: "Up to $1 M",
     value: "0-1",
   },
-  "1+": {
-    label: "$1 M to $3 M",
-    value: "1+",
-  },
   "1-2": {
     label: "$1 M to $2 M",
     value: "1-2",
@@ -75,9 +67,9 @@ export const priceRanges = {
     label: "$5 M to $8 M",
     value: "5-8",
   },
-  "8": {
+  "8+": {
     label: "$8 M+",
-    value: "8",
+    value: "8+",
   },
 };
 export const neighborhoodstitle: string[] = [

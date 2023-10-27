@@ -1,4 +1,5 @@
 import { CeldWrapper } from "../../lib/styledComponents/table";
+import { checkAmountZero } from "./../../helpers/checkAmountZero";
 
 function AvgComponent({
   avg,
@@ -7,11 +8,11 @@ function AvgComponent({
   activeClass: string;
   avg: number;
 }) {
-  console.log(activeClass);
+  // console.log(activeClass);
   return (
     <CeldWrapper className={`${activeClass}`}>
       <h3>AVG $ / SQFT</h3>
-      <h4>{avg}</h4>
+      <h4>{checkAmountZero("", avg, "").message} </h4>
     </CeldWrapper>
   );
 }

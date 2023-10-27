@@ -1,3 +1,4 @@
+import { checkAmountZero } from "../../helpers/checkAmountZero";
 import { CeldWrapper } from "../../lib/styledComponents/table";
 
 function AvgPropertyComponent({
@@ -11,7 +12,7 @@ function AvgPropertyComponent({
     <CeldWrapper className={`${activeClass}`}>
       {" "}
       <h3>AVG Property Size</h3>
-      <h4>{avgProp} Sq.Ft.</h4>
+      <h4>{checkAmountZero("", avgProp, " Sq.Ft.").message}</h4>
     </CeldWrapper>
   );
 }

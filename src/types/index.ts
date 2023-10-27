@@ -26,7 +26,6 @@ export interface monthRangesType {
   3: monthRangesInput;
   6: monthRangesInput;
   12: monthRangesInput;
-  24: monthRangesInput;
 }
 export interface Condo {
   NoWaterFront: { [key: string]: NewProperty };

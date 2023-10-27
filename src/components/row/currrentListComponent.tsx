@@ -1,3 +1,4 @@
+import { checkAmountZero } from "../../helpers/checkAmountZero";
 import { CeldWrapper } from "../../lib/styledComponents/table";
 
 function CurrrentListComponent({
@@ -11,9 +12,9 @@ function CurrrentListComponent({
 }) {
   return (
     <CeldWrapper className={`${activeClass}`}>
-      <h3>Current Litings</h3>
+      <h3>Current Listings</h3>
       <h4>{unitSold}</h4>
-      <p>{variation_active} %</p>
+      <p>{checkAmountZero("", variation_active, " %").message}</p>
     </CeldWrapper>
   );
 }

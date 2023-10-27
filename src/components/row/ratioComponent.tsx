@@ -1,3 +1,4 @@
+import { checkAmountZero } from "../../helpers/checkAmountZero";
 import { CeldWrapper } from "../../lib/styledComponents/table";
 
 function RatioComponent({
@@ -10,7 +11,7 @@ function RatioComponent({
   return (
     <CeldWrapper className={`${activeClass}`}>
       <h3>% Ratio list/ Close Price</h3>
-      <h4>{ratio} %</h4>
+      <h4>{checkAmountZero("", ratio, " %").message}</h4>
     </CeldWrapper>
   );
 }

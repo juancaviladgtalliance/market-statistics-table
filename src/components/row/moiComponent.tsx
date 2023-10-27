@@ -1,3 +1,4 @@
+import { checkAmountZero } from "../../helpers/checkAmountZero";
 import { CeldWrapper } from "../../lib/styledComponents/table";
 
 function MoiComponent({
@@ -13,7 +14,9 @@ function MoiComponent({
   return (
     <CeldWrapper className={`${activeClass}${colorAlert}`}>
       <h3 className="cell-title">MOI</h3>{" "}
-      <h4 className="cell-content">{moi} Months</h4>
+      <h4 className="cell-content">
+        {checkAmountZero("", moi, " Months").message}{" "}
+      </h4>
       <p className="cell-data">{moiType} Market</p>
     </CeldWrapper>
   );

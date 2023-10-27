@@ -1,3 +1,4 @@
+import { checkAmountZero } from "../../helpers/checkAmountZero";
 import { hooks } from "../../lib/redux";
 import { CeldWrapper } from "../../lib/styledComponents/table";
 
@@ -15,8 +16,8 @@ function TotalSoldComponent({
   return (
     <CeldWrapper className={`${activeClass}`}>
       <h3>{`${unitText} Sold`}</h3>
-      <h4>{totalSold}</h4>
-      <p>{variation_sold} %</p>
+      <h4>{checkAmountZero("", totalSold, "").message}</h4>
+      <p>{checkAmountZero("", variation_sold, " %").message}</p>
     </CeldWrapper>
   );
 }
