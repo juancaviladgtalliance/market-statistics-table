@@ -7,11 +7,11 @@ export const monthRanges: monthRangesType = {
   },
   6: {
     label: "3-6 Months Back",
-    value: 6,
+    value: 36,
   },
   12: {
     label: "6-12 Months Back",
-    value: 12,
+    value: 612,
   },
 };
 export const propertyTypes: PropertyStyles = {
@@ -47,17 +47,9 @@ export const priceRanges = {
     label: "Up to $1 M",
     value: "0-1",
   },
-  "1-2": {
-    label: "$1 M to $2 M",
-    value: "1-2",
-  },
   "1-3": {
     label: "$1 M to $3 M",
     value: "1-3",
-  },
-  "2-3": {
-    label: "$2 M to $3 M",
-    value: "2-3",
   },
   "3-5": {
     label: "$3 M to $5 M",

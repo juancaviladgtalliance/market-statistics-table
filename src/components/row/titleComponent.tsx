@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { elapseTimes } from "../../constants";
+import { elapseTimes, monthRanges } from "../../constants";
 import { TitleWrapper } from "../../lib/styledComponents/table";
 import { hooks, setActiveNeighborhood } from "../../lib/redux";
 
@@ -18,14 +18,11 @@ function TitleComponent({
   const isOpen = activeNeighborhood === rowId ? " open" : "";
   useEffect(() => {
     switch (range) {
-      case "6":
+      case `${monthRanges[6].value}`:
         setElapsed(elapseTimes[1]);
         break;
-      case "12":
+      case `${monthRanges[12].value}`:
         setElapsed(elapseTimes[2]);
-        break;
-      case "24":
-        setElapsed(elapseTimes[3]);
         break;
       default:
         setElapsed(elapseTimes[0]);
