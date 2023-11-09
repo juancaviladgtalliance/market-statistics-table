@@ -19,17 +19,17 @@ p {
 `;
 const fontTitle2 = `
 h3 {
-  color: #333;
+  color: #fff;
   text-align: center;
   font-weight: 600;
 }
 h4 {
-  color: #333;
+  color: #fff;
   text-align: center;
   font-weight: 600;
 }
 p {
-  color:#333;
+  color:#fff;
   text-align: center;
 }
 
@@ -46,10 +46,10 @@ export const CeldWrapper = styled.div`
   overflow: hidden;
   transition: all 0.5s;
   // background-color: ${({ color }) => color};
-  background-color: #d5d5d5;
+  background-color: #727c9d;
   ${fontTitle2}
   &.red {
-    background-color: red;
+    background-color: #fa6e6e;
     color: white;
     ${fontTitle1}
   }
@@ -58,16 +58,20 @@ export const CeldWrapper = styled.div`
     color: white;
     ${fontTitle1}
   }
+  &.avg-item {
+    background-color: #e49a37;
+  }
   &.panel-item {
     transition: all 0.5s;
     cursor: pointer;
+    background-color: #39374f;
+    img {
+      filter: invert(1);
+    }
     &:hover {
-      background-color: #333;
+      background-color: #3b4b7c;
       color: white;
       ${fontTitle1}
-      img {
-        filter: invert(1);
-      }
     }
   }
   @media (max-width: 1360px) {
@@ -83,9 +87,11 @@ export const CeldWrapper = styled.div`
 `;
 export const TableWrapper = styled.div`
   .row {
+
     display: grid;
     gap: 0px;
-    grid-template-columns: 1.4fr repeat(7, minmax(150px, 1fr)) 2fr;
+    grid-template-columns: 1fr repeat(7, minmax(150px, 1fr));
+    
     padding: 10px 25px 10px 25px;
     align-items: center;
     justify-content: space-around;
@@ -104,24 +110,47 @@ export const TableWrapper = styled.div`
 
       &.active-row {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(5, 1fr);
+        grid-template-rows: repeat(4, 1fr);
         margin-bottom: 10px;
         display: grid;
         gap: 10px;
       }
+      &.active-row.current-row{
+        @media (max-width: 1360px) {
+          grid-template-rows: repeat(5, 1fr);
+        }
+      }
     }
     @media (min-width: 1361px) {
       gap: 3px;
-      grid-template-columns 1.5fr repeat(7, minmax(135px, 1fr)) 2fr
+      grid-template-columns 1.5fr repeat(7, minmax(135px, 1fr));
+      &.current-row{
+        grid-template-rows: repeat(2, 1fr);
+      }
     }
     @media (min-width: 1439px) {
       gap: 10px;
-      grid-template-columns 1.5fr repeat(7, minmax(135px, 1fr)) 2fr
+      grid-template-columns 1.5fr repeat(7, minmax(135px, 1fr));
+      &.current-row{
+        grid-template-rows: repeat(2, 1fr);
+      }
     }
     @media (min-width: 1750px) {
       gap: 15px;
-      grid-template-columns 1.5fr repeat(7, minmax(150px, 1fr)) 2fr
+      grid-template-columns 1.5fr repeat(7, minmax(150px, 1fr));
     }
+  }
+`;
+export const DetailNeighborhood = styled.section`
+  display: none;
+  @media (max-width: 1360px) {
+    grid-area: 5 / 1 / 6 / 3;
+  }
+  @media (min-width: 1361px) {
+    grid-area: 2 / 1 / 3 / 9;
+  }
+  &.active {
+    display: block;
   }
 `;
 export const TitleWrapper = styled.div`

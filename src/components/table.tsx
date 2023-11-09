@@ -9,7 +9,7 @@ import {
   AvgComponent,
   AvgPropertyComponent,
   RatioComponent,
-  Panel,
+  NeighborhoodList,
 } from "./row";
 import { TableWrapper } from "../lib/styledComponents/table";
 
@@ -19,7 +19,9 @@ const TableComponent = () => {
   const { range, type, style, neighborhood, price } = hooks.useAppSelector(
     (state) => state.filters
   );
+
   const { cities, failed } = hooks.useAppSelector((state) => state.tables);
+
   useEffect(() => {
     if (cities.length === 0 && !failed) {
       dispatch(getAsyncCities());
@@ -29,25 +31,21 @@ const TableComponent = () => {
   const neighborhoodRows =
     neighborhood === 0
       ? cities
-      : cities.filter((city) => city.data.id === neighborhood);
+      : cities.filter((city) => city.id === neighborhood);
+
   return (
     <TableWrapper>
       {cities.length === 0 && !failed ? (
         <div className="loading">Loading</div>
       ) : (
         neighborhoodRows.map((row) => {
-          const { data } = row;
-          const { Condo, Home } = data.range[range];
+          const { Condo, Home } = row.range[range];
           const currentRange = type === "condo" ? Condo : Home;
           const { NoWaterFront, WaterFront, NoStyle, NewProperty } =
             currentRange;
 
-          const activeClass =
-            row.shortcode_content_id === activeNeighborhood ? " active" : "";
-          const ActiveRow =
-            row.shortcode_content_id === activeNeighborhood
-              ? " active-row"
-              : "";
+          const activeClass = row.id === activeNeighborhood ? " active" : "";
+          const ActiveRow = row.id === activeNeighborhood ? " active-row" : "";
           if (style === "new") {
             const {
               moi,
@@ -62,8 +60,8 @@ const TableComponent = () => {
             return (
               <div className={`row${ActiveRow}`} key={row.id}>
                 <TitleComponent
-                  rowId={row.shortcode_content_id}
-                  title={row.title}
+                  rowId={row.id}
+                  title={row.name}
                   range={`${range}`}
                 />
                 <MoiComponent moi={moi} activeClass={activeClass} />
@@ -86,11 +84,7 @@ const TableComponent = () => {
                   unitSold={total_active}
                   activeClass={activeClass}
                 />
-                <Panel
-                  neighborhoodId={data.id}
-                  link={row.url}
-                  activeClass={activeClass}
-                />
+                {row.id == neighborhood && <NeighborhoodList rowId={row.id} />}
               </div>
             );
           } else if (style === "no_waterfront") {
@@ -107,8 +101,8 @@ const TableComponent = () => {
             return (
               <div className={`row${ActiveRow}`} key={row.id}>
                 <TitleComponent
-                  rowId={row.shortcode_content_id}
-                  title={row.title}
+                  rowId={row.id}
+                  title={row.name}
                   range={`${range}`}
                 />
                 <MoiComponent moi={moi} activeClass={activeClass} />
@@ -131,11 +125,7 @@ const TableComponent = () => {
                   unitSold={total_active}
                   activeClass={activeClass}
                 />
-                <Panel
-                  neighborhoodId={data.id}
-                  link={row.url}
-                  activeClass={activeClass}
-                />
+                {row.id == neighborhood && <NeighborhoodList rowId={row.id} />}
               </div>
             );
           } else if (style === "waterfront") {
@@ -152,8 +142,8 @@ const TableComponent = () => {
             return (
               <div className={`row${ActiveRow}`} key={row.id}>
                 <TitleComponent
-                  rowId={row.shortcode_content_id}
-                  title={row.title}
+                  rowId={row.id}
+                  title={row.name}
                   range={`${range}`}
                 />
                 <MoiComponent moi={moi} activeClass={activeClass} />
@@ -176,11 +166,7 @@ const TableComponent = () => {
                   activeClass={activeClass}
                   unitSold={total_active}
                 />
-                <Panel
-                  neighborhoodId={data.id}
-                  link={row.url}
-                  activeClass={activeClass}
-                />
+                {row.id == neighborhood && <NeighborhoodList rowId={row.id} />}
               </div>
             );
           } else {
@@ -198,9 +184,9 @@ const TableComponent = () => {
             return (
               <div className={`row${ActiveRow}`} key={row.id}>
                 <TitleComponent
-                  title={row.title}
+                  title={row.name}
                   range={`${range}`}
-                  rowId={row.shortcode_content_id}
+                  rowId={row.id}
                 />
                 <MoiComponent moi={moi} activeClass={activeClass} />
                 <AvgComponent avg={pxsqft_sold} activeClass={activeClass} />
@@ -222,11 +208,7 @@ const TableComponent = () => {
                   unitSold={total_active}
                   activeClass={activeClass}
                 />
-                <Panel
-                  neighborhoodId={data.id}
-                  link={row.url}
-                  activeClass={activeClass}
-                />
+                {row.id == neighborhood && <NeighborhoodList rowId={row.id} />}
               </div>
             );
           }

@@ -1,27 +1,59 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import useFetch from "./hooks/useFetch";
-import { CityList } from "./types";
 import { Filters, Table } from "./components";
+import { Helmet } from "react-helmet";
+import {
+  hooks,
+  setMmarketStatisticTitle,
+  setNeighborhoodList,
+} from "./lib/redux";
+import { uiInitialState } from "./constants";
 
 function App() {
-  const [neighborhoodList, setNeighborhoodList] = useState<CityList | null>(
-    null
+  const dispatch = hooks.useAppDispatch();
+  const { marketStatisticTitle, neighborhoodList } = hooks.useAppSelector(
+    (state) => state.ius
   );
+  const { neighborhood } = hooks.useAppSelector((state) => state.filters);
+
   const cities: string = import.meta.env?.DEV
     ? import.meta.env.VITE_DEV_URL_CITIES
     : import.meta.env.VITE_PROD_URL_CITIES;
 
   const { data } = useFetch(cities);
   useEffect(() => {
+    // console.log(data);
     if (neighborhoodList === null && data != null) {
-      const neighborhoods = Array.from(data);
-
-      setNeighborhoodList(neighborhoods);
+      const neighborhoods = data || [];
+      //  console.log(data);
+      dispatch(setNeighborhoodList(neighborhoods));
     }
     // console.log(neighborhoodList);
   }, [data]);
+  useEffect(() => {
+    // console.log(neighborhood);
+    if (neighborhood !== 0) {
+      const neighborhoodstitleItem = neighborhoodList?.filter(
+        (item) => item.shortcode_content_id === neighborhood
+      );
+      console.log(neighborhoodstitleItem);
+      const neighborhoodTitleText = neighborhoodstitleItem
+        ? `${neighborhoodstitleItem[0].name}`
+        : uiInitialState.marketStatisticTitle;
+      dispatch(setMmarketStatisticTitle(neighborhoodTitleText));
+    } else {
+      dispatch(setMmarketStatisticTitle(uiInitialState.marketStatisticTitle));
+    }
+  }, [neighborhood]);
+  useEffect(() => {
+    document.getElementById("open-trigger-button")!.innerHTML =
+      marketStatisticTitle;
+  }, [marketStatisticTitle]);
   return (
     <>
+      <Helmet>
+        <title>{marketStatisticTitle}</title>
+      </Helmet>
       {neighborhoodList === null ? null : (
         <div className="ms-shortcode-sold-properties-filters">
           <Filters neighborhoodList={neighborhoodList} />

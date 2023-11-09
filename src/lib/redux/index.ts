@@ -7,5 +7,9 @@ export {
   setNeighborhood,
   setPrice,
 } from "./features/filterslicer";
-export { setActiveNeighborhood } from "./features/iusSlicer";
+export {
+  setActiveNeighborhood,
+  setMmarketStatisticTitle,
+  setNeighborhoodList,
+} from "./features/iusSlicer";
 export * from "./store";

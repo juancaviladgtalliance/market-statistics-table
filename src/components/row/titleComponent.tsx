@@ -32,7 +32,13 @@ function TitleComponent({
   return (
     <TitleWrapper
       className="titlecomponent"
-      onClick={() => dispatch(setActiveNeighborhood(rowId))}
+      onClick={() => {
+        if (activeNeighborhood !== rowId) {
+          dispatch(setActiveNeighborhood(rowId));
+        } else {
+          dispatch(setActiveNeighborhood(0));
+        }
+      }}
     >
       <div className="button-wrapper">
         <button className={`${isOpen}`}>

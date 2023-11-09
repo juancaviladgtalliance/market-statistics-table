@@ -7,20 +7,25 @@ import { neighborhoodstitle } from "../../../constants";
 export const getAsyncCities = createAsyncThunk(
   "tables/getAsyncCities",
   async () => {
-    const url: string = import.meta.env?.DEV
-      ? import.meta.env.VITE_DEV_URL_NEIGHBORHOOD
-      : import.meta.env.VITE_PROD_URL_NEIGHBORHOOD;
+    const url = import.meta.env.VITE_URL_NEIGHBORHOODS;
     const controller = new AbortController();
+
     const response = await fetch(url, {
       signal: controller.signal,
-      mode: "no-cors",
+      headers: {
+        Authorization:
+          "Basic " +
+          btoa(
+            import.meta.env.VITE_USERNAME + ":" + import.meta.env.VITE_PASSWORD
+          ),
+      },
     });
-    const string = await response.text();
-    const json = string === "" ? {} : JSON.parse(string);
 
-    const list = neighborhoodstitle;
+    const data = await response.json();
+    // console.log(data);
 
-    const result = sortArrayByList(json, list);
+    const result = sortArrayByList(data.cities, neighborhoodstitle);
+    // console.log(result);
     return result;
   }
 );
@@ -43,6 +48,7 @@ const tableSlicer = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(getAsyncCities.fulfilled, (state, action) => {
+      //  console.log("addcase", action.payload);
       state.cities = action.payload;
     }),
       builder.addCase(getAsyncCities.rejected, (state) => {

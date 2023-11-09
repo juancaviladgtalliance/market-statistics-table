@@ -8,8 +8,7 @@ function MoiComponent({
   activeClass: string;
   moi: number;
 }) {
-  const colorAlert =
-      moi === 9 ? " gray" : moi < 9 && moi !== 9 ? " red" : " green",
+  const colorAlert = moi < 9 ? " red" : " green",
     moiType = moi >= 9 ? "Sellers" : "Buyers";
   return (
     <CeldWrapper className={`${activeClass}${colorAlert}`}>

@@ -1,26 +1,32 @@
 export interface MarketStatisticData {
   id: number;
-  title: string;
-  url: string;
-  shortcode_content_id: number;
-  data: Data;
+  name: string;
+  range: { [key: string]: Range };
 }
 export interface NewWindow extends Window {
   url: string;
 }
-export interface Data {
-  id: number;
-  name: string;
-  range: { [key: string]: Range };
-}
+export interface Data {}
 
 export interface Range {
   Condo: Condo;
   Home: Condo;
 }
+export interface PriceType {
+  label: string;
+  value: string;
+  minPrice: number;
+  maxPrice: number;
+}
+export interface PriceRangesType {
+  [key: string]: PriceType;
+}
 export interface monthRangesInput {
   label: string;
   value: number;
+  index: string;
+  start: number;
+  end: number;
 }
 export interface monthRangesType {
   3: monthRangesInput;
@@ -49,16 +55,22 @@ export interface NewProperty {
 export interface NeighborhoodItem {
   id: number;
   shortcode_content_id: number;
-  title: string;
+  name: string;
   url: string;
 }
 export interface PropertyTypesObject {
   label: string;
   value: string;
+  id: number;
 }
 export interface PropertyStyles {
   condos: PropertyTypesObject;
   homes: PropertyTypesObject;
+}
+export interface UiInitialState {
+  activeNeighborhood: number;
+  marketStatisticTitle: string;
+  neighborhoodList: NeighborhoodItem[] | null;
 }
 export type CityList = NeighborhoodItem[];
 export type MarketStatisticDataList = MarketStatisticData[];

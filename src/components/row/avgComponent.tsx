@@ -10,7 +10,7 @@ function AvgComponent({
 }) {
   // console.log(activeClass);
   return (
-    <CeldWrapper className={`${activeClass}`}>
+    <CeldWrapper className={`${activeClass} avg-item`}>
       <h3>AVG $ / SQFT</h3>
       <h4>{checkAmountZero("", avg, "").message} </h4>
     </CeldWrapper>

@@ -11,13 +11,18 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.6",
+    "@types/react-helmet": "^6.1.8",
+    "axios": "^1.6.0",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-helmet": "^6.1.0",
     "react-redux": "^8.1.2",
     "redux": "^4.2.1",
     "styled-components": "^6.0.8"
   },
   "devDependencies": {
+    "@types/moment": "^2.13.0",
     "@types/node": "^20.8.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",

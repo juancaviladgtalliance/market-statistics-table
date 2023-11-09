@@ -5,6 +5,15 @@ interface ImportMetaEnv {
   readonly VITE_PROD_URL_CITIES: string;
   readonly VITE_DEV_URL_NEIGHBORHOOD: string;
   readonly VITE_PROD_URL_NEIGHBORHOOD: string;
+  readonly VITE_URL_NEIGHBORHOODS: string;
+  readonly VITE_USERNAME: string;
+  readonly VITE_PASSWORD: string;
+  readonly VITE_URL_SIDDONS_NEIGHBORHOOD_LIST: string;
+  readonly VITE_ACTION_KEY: string;
+  readonly VITE_PASSWORD_NEIGHBORHOOD: string;
+  readonly VITE_USERNAME_NEIGHBORHOOD: string;
+  readonly VITE_URL_DEV_SIDDONS_NEIGHBORHOOD_LIST: string;
+  readonly VITE_URL_PROD_SIDDONS_NEIGHBORHOOD_LIST: string;
 
   // more env variables...
 }

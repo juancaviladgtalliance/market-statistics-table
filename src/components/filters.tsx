@@ -82,7 +82,7 @@ const FiltersComponent = ({
                 >
                   <option value="0">Select a Neighborhood</option>
                   {result.map((neighborhoodObject) => {
-                    //console.log(neighborhoodObject);
+                    // console.log(neighborhoodObject);
                     return (
                       <option
                         key={neighborhoodObject.shortcode_content_id}
@@ -92,7 +92,7 @@ const FiltersComponent = ({
                           neighborhood
                         }
                       >
-                        {neighborhoodObject.title}
+                        {neighborhoodObject.name}
                       </option>
                     );
                   })}
