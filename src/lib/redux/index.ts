@@ -6,10 +6,13 @@ export {
   setStyles,
   setNeighborhood,
   setPrice,
+  setPagination,
+  setSorting,
 } from "./features/filterslicer";
 export {
   setActiveNeighborhood,
   setMmarketStatisticTitle,
   setNeighborhoodList,
 } from "./features/iusSlicer";
+export * as soldList from "./features/soldListSlicer";
 export * from "./store";

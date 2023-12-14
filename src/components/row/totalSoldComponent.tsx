@@ -15,9 +15,14 @@ function TotalSoldComponent({
   const unitText = type === "condo" ? "Condos" : "Homes";
   return (
     <CeldWrapper className={`${activeClass}`}>
-      <h3>{`${unitText} Sold`}</h3>
-      <h4>{checkAmountZero("", totalSold, "").message}</h4>
-      <p>{checkAmountZero("", variation_sold, " %").message}</p>
+      <h3 style={{ fontSize: "0.7rem" }}>{`# ${unitText} Sold`}</h3>
+      <h4 style={{ fontSize: "0.7rem" }}>
+        {checkAmountZero("", totalSold, "").message}
+      </h4>
+      <h3 style={{ fontSize: "0.7rem" }}>Change from last year</h3>
+      <p style={{ fontSize: "0.7rem" }}>
+        {checkAmountZero("", variation_sold, " %").message}
+      </p>
     </CeldWrapper>
   );
 }

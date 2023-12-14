@@ -1,10 +1,17 @@
 import {
+  DataData,
   PriceRangesType,
   PropertyStyles,
+  SelectOrderType,
   UiInitialState,
   monthRangesType,
 } from "../types";
 
+export const intialSoldList: DataData = {
+  error: null,
+  request: null,
+  response: null,
+};
 export const monthRanges: monthRangesType = {
   3: {
     label: "0-3 Months Back",
@@ -64,6 +71,12 @@ export const propertyStyles = {
   },
 };
 export const priceRanges: PriceRangesType = {
+  /*  all: {
+    label: "All Ranges",
+    value: "0-1",
+    minPrice: 0,
+    maxPrice: 10000000,
+  }, */
   "0-1": {
     label: "Up to $1 M",
     value: "0-1",
@@ -118,3 +131,13 @@ export const neighborhoodstitle: string[] = [
   "South Miami",
 ];
 export const elapseTimes = ["90 days", "180 days", "One year", "Two year"];
+
+export const selectOrder: SelectOrderType[] = [
+  { value: "last_updated-desc", label: "Modified Listings" },
+  { value: "price_sqft-desc", label: "Highest Price/Sq.Ft" },
+  { value: "price_sqft-asc", label: "Lowest Price/Sq.Ft" },
+  { value: "price-asc", label: "Lowest Price" },
+  { value: "price-desc", label: "Highest Price" },
+  { value: "sqft-desc", label: "Highest Sq.Ft" },
+  { value: "sqft-asc", label: "Lowest Sq.Ft" },
+];

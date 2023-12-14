@@ -7,4 +7,4 @@ export { default as TotalSoldComponent } from "./totalSoldComponent";
 export { default as CurrrentListComponent } from "./currrentListComponent";
 export { default as RatioComponent } from "./ratioComponent";
 export { default as Panel } from "./panelComponent/panelWrapper";
-export { default as NeighborhoodList } from "./siddons-neighborhood-list";
+export { default as NeighborhoodList } from "../soldList/siddons-neighborhood-list.tsx";

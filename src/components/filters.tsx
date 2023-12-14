@@ -21,6 +21,11 @@ const FilterWrapper = styled.div`
   .ms-wrapper-filters-list {
     order: 1 !important;
   }
+  @media (max-width: 767px) {
+    .form-wrapper {
+      padding: 20px;
+    }
+  }
 `;
 
 const FiltersComponent = ({
@@ -46,75 +51,24 @@ const FiltersComponent = ({
       <div className="gwr">
         <div className="ms-filter">
           <form action="#" method="post">
-            <div className="ms-wrapper-filters-list">
-              <div className="ms-item fg">
-                <label htmlFor="thecityid">Property Types</label>
-                <select
-                  className="ms-select fc-select f-ptype"
-                  name="ptype"
-                  id="ptype"
-                  onChange={(e) => {
-                    dispatch(setTypes(`${e.target.value}`));
-                  }}
-                >
-                  {typesinputs.map((typeInput) => {
-                    return (
-                      <option
-                        key={typeInput.value}
-                        value={`${typeInput.value}`}
-                        selected={typeInput.value == type}
-                      >
-                        {typeInput.label}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-              <div className="ms-item fg">
-                <label htmlFor="thecityid">Neighborhood</label>
-                <select
-                  className="ms-select fc-select f-neighborhood"
-                  name="thecityid"
-                  id="thecityid"
-                  onChange={(e) => {
-                    dispatch(setNeighborhood(parseInt(e.target.value)));
-                  }}
-                >
-                  <option value="0">Select a Neighborhood</option>
-                  {result.map((neighborhoodObject) => {
-                    // console.log(neighborhoodObject);
-                    return (
-                      <option
-                        key={neighborhoodObject.shortcode_content_id}
-                        value={neighborhoodObject.shortcode_content_id}
-                        selected={
-                          neighborhoodObject.shortcode_content_id ==
-                          neighborhood
-                        }
-                      >
-                        {neighborhoodObject.name}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-              <div className="ms-item fg">
-                <label htmlFor="thestyle">Property Style</label>
-                <div className="ms-dropdown fc-dropdown f-pstyle js-fc-dropdown">
+            <div className="form-wrapper">
+              <div className="ms-wrapper-filters-list">
+                <div className="ms-item fg">
+                  <label htmlFor="thecityid">Property Types</label>
                   <select
-                    className="ms-select fc-select f-pstyle"
-                    name="thestyle"
-                    id="thestyle"
+                    className="ms-select fc-select f-ptype"
+                    name="ptype"
+                    id="ptype"
                     onChange={(e) => {
-                      dispatch(setStyles(`${e.target.value}`));
+                      dispatch(setTypes(`${e.target.value}`));
                     }}
                   >
-                    {propertyStylesOptions.map((typeInput) => {
+                    {typesinputs.map((typeInput) => {
                       return (
                         <option
                           key={typeInput.value}
                           value={`${typeInput.value}`}
-                          selected={typeInput.value == style}
+                          selected={typeInput.value == type}
                         >
                           {typeInput.label}
                         </option>
@@ -122,53 +76,129 @@ const FiltersComponent = ({
                     })}
                   </select>
                 </div>
+                <div className="ms-item fg">
+                  <label htmlFor="thecityid">Neighborhood</label>
+                  <select
+                    className="ms-select fc-select f-neighborhood"
+                    name="thecityid"
+                    id="thecityid"
+                    onChange={(e) => {
+                      dispatch(setNeighborhood(parseInt(e.target.value)));
+                    }}
+                  >
+                    <option value="0">Select a Neighborhood</option>
+                    {result.map((neighborhoodObject) => {
+                      // console.log(neighborhoodObject);
+                      return (
+                        <option
+                          key={neighborhoodObject.shortcode_content_id}
+                          value={neighborhoodObject.shortcode_content_id}
+                          selected={
+                            neighborhoodObject.shortcode_content_id ==
+                            neighborhood
+                          }
+                        >
+                          {neighborhoodObject.name}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </div>
+                <div className="ms-item fg">
+                  <label htmlFor="thestyle">Property Style</label>
+                  <div className="ms-dropdown fc-dropdown f-pstyle js-fc-dropdown">
+                    <select
+                      className="ms-select fc-select f-pstyle"
+                      name="thestyle"
+                      id="thestyle"
+                      onChange={(e) => {
+                        dispatch(setStyles(`${e.target.value}`));
+                      }}
+                    >
+                      {propertyStylesOptions.map((typeInput) => {
+                        return (
+                          <option
+                            key={typeInput.value}
+                            value={`${typeInput.value}`}
+                            selected={typeInput.value == style}
+                          >
+                            {typeInput.label}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                </div>
+                <div className="ms-item fg">
+                  <label htmlFor="thepricerange">Price Range</label>
+                  {neighborhood === 0 ? (
+                    <select
+                      className="ms-select fc-select f-pricerange"
+                      name="the_pricerange"
+                      id="the_pricerange"
+                      onChange={(e) => {
+                        dispatch(setPrice(`${e.target.value}`));
+                      }}
+                    >
+                      {priceRangesOptions.map((rangeInput) => {
+                        return (
+                          <option
+                            key={rangeInput.value}
+                            value={`${rangeInput.value}`}
+                            selected={rangeInput.value == price}
+                          >
+                            {rangeInput.label}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  ) : (
+                    <select
+                      className="ms-select fc-select f-pricerange"
+                      name="the_pricerange"
+                      id="the_pricerange"
+                      onChange={(e) => {
+                        dispatch(setPrice(`${e.target.value}`));
+                      }}
+                    >
+                      <option value="all">All Prices</option>
+                      {priceRangesOptions.map((rangeInput) => {
+                        return (
+                          <option
+                            key={rangeInput.value}
+                            value={`${rangeInput.value}`}
+                          >
+                            {rangeInput.label}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  )}
+                </div>
               </div>
-              <div className="ms-item fg">
-                <label htmlFor="thepricerange">Price Range</label>
-                <select
-                  className="ms-select fc-select f-pricerange"
-                  name="the_pricerange"
-                  id="the_pricerange"
-                  onChange={(e) => {
-                    dispatch(setPrice(`${e.target.value}`));
-                  }}
-                >
-                  {priceRangesOptions.map((rangeInput) => {
-                    return (
-                      <option
-                        key={rangeInput.value}
-                        value={`${rangeInput.value}`}
-                        selected={rangeInput.value == price}
-                      >
-                        {rangeInput.label}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-            </div>
 
-            <div className="ms-wrapper-month-list">
-              <ul className="ms-month-list">
-                {rangesinputs.map((rangeInput) => (
-                  <li className="ms-item" key={rangeInput.value}>
-                    <div className="ms-chk -radio">
-                      <input
-                        id={`${rangeInput.value}`}
-                        type="radio"
-                        name="month"
-                        value={rangeInput.value}
-                        className="f-interval-date"
-                        checked={range === rangeInput.value}
-                        onChange={() => dispatch(setRanges(rangeInput.value))}
-                      />
-                      <label htmlFor={`${rangeInput.value}`}>
-                        {rangeInput.label}
-                      </label>
-                    </div>
-                  </li>
-                ))}
-              </ul>
+              <div className="ms-wrapper-month-list">
+                <ul className="ms-month-list">
+                  {rangesinputs.map((rangeInput) => (
+                    <li className="ms-item" key={rangeInput.value}>
+                      <div className="ms-chk -radio">
+                        <input
+                          id={`${rangeInput.value}`}
+                          type="radio"
+                          name="month"
+                          value={rangeInput.value}
+                          className="f-interval-date"
+                          checked={range === rangeInput.value}
+                          onChange={() => dispatch(setRanges(rangeInput.value))}
+                        />
+                        <label htmlFor={`${rangeInput.value}`}>
+                          {rangeInput.label}
+                        </label>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </form>
         </div>

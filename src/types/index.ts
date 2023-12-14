@@ -74,3 +74,177 @@ export interface UiInitialState {
 }
 export type CityList = NeighborhoodItem[];
 export type MarketStatisticDataList = MarketStatisticData[];
+
+export interface SoldPropertiesSchema {
+  data: SoldPropertiesSchemaData;
+}
+
+export interface SoldPropertiesSchemaData {
+  success: boolean;
+  data: DataData;
+}
+
+export interface DataData {
+  error: null;
+  request?: Request | null;
+  response?: Response | null;
+}
+
+export interface Request {
+  action: string;
+  closeDateInterval: string;
+  classID: string;
+  propertyStyle: string;
+  order: string;
+  page: string;
+  priceMin: string;
+  priceMax: string;
+  cityID: string;
+  price: string;
+  closeDateStart: string;
+  closeDateEnd: string;
+}
+
+export interface Response {
+  cambiado: string;
+  heading: string;
+  query: string;
+  queryMap: string;
+  counter: number;
+  mapItems: MapItem[];
+  items: Item[];
+  statistics: null;
+  textCurl: string;
+  pagination: Pagination;
+  order: string;
+}
+
+export interface Item {
+  price_sqft: string;
+  sysid: string;
+  mlsNum: string;
+  addressShort: string;
+  addressLarge: string;
+  price: string;
+  priceRegular: string;
+  class_id: string;
+  bed: string;
+  bath: string;
+  baths_half: string;
+  sqft: string;
+  lot_size: string;
+  lat: string;
+  lng: string;
+  slug: string;
+  development: string;
+  subdivision: string;
+  complex: string;
+  listDate: string;
+  year: string;
+  isRental: string;
+  board_id: string;
+  status: string;
+  cityName: string;
+  zip: string;
+  pricesf: string;
+  state: string;
+  dateProperty: Date;
+  full_address: string;
+  fullAddressTop: string;
+  fullAddressBottom: string;
+  recentlyListed: string;
+  timeZoneUser: string;
+  minAgo: number;
+  minAgoTxt: string;
+  daysMarket: number;
+  isFavorite: boolean;
+  heading: string;
+  gallery: string[];
+  reduced: number;
+  livingSizeM2: number;
+  priceSqftM2: number;
+}
+
+export interface MapItem {
+  priceSqft: string;
+  sysid: string;
+  mlsNum: string;
+  addressShort: string;
+  addressLarge: string;
+  price: string;
+  priceRegular: string;
+  priceOrigin: string;
+  classID: string;
+  bed: string;
+  bath: string;
+  bathsHalf: string;
+  sqft: string;
+  lotSize: string;
+  lat: string;
+  lng: string;
+  image: string;
+  slug: string;
+  imgCnt: number;
+  remark: string;
+  imagens: string;
+  development: string;
+  subdivision: string;
+  complex: string;
+  listDate: string;
+  year: string;
+  isRental: string;
+  boardID: number;
+  status: string;
+  cityName: string;
+  zip: string;
+  pricesf: string;
+  state: string;
+  dateProperty: Date;
+  gallery: string[];
+}
+
+export interface Pagination {
+  currentPageNumber: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+  itemsCountPerPage: number;
+  offset: Offset;
+  totalItemsCount: number;
+  total_pages_count: number;
+  range: number[];
+}
+
+export interface Offset {
+  start: number;
+  end: number;
+}
+export interface ItemProps {
+  sysid: string;
+  class_id: string;
+  image: string[] | never;
+  full_address: null | string;
+  price_sqft: null | string;
+  reduced: null | number;
+  price: null | string;
+  bed: null | string;
+  bath: null | string;
+  subdivision: null | string;
+  slug?: string;
+}
+export interface initialFilters {
+  range: number;
+  type: string;
+  neighborhood: number;
+  style: string;
+  price: string;
+  sortListing: string;
+  pagination: {
+    current: number;
+    total: number;
+    pageSize: number;
+  };
+}
+export interface SelectOrderType {
+  value: string;
+  label: string;
+}

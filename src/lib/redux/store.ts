@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import filterSlicer from "./features/filterslicer";
 import tableslicer from "./features/tableslicer";
 import iusSlicer from "./features/iusSlicer";
+import soldListSlicer from "./features/soldListSlicer";
 
 export const store = configureStore({
   reducer: {
     filters: filterSlicer,
     tables: tableslicer,
     ius: iusSlicer,
+    soldList: soldListSlicer,
   },
 });
 

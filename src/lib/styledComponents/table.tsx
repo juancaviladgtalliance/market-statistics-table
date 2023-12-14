@@ -1,5 +1,6 @@
 import styled from "styled-components";
 const fontSize = "12px";
+const gridSize = 1.5;
 const fontTitle1 = `
 h3 {
   color: white;
@@ -86,12 +87,28 @@ export const CeldWrapper = styled.div`
   }
 `;
 export const TableWrapper = styled.div`
+  h3.ant-skeleton-title {
+    display: none;
+  }
+  .skeletonContainer {
+    padding: 20px;
+    padding-top: 0px;
+    :where(.css-dev-only-do-not-override-6j9yrn).ant-skeleton
+      .ant-skeleton-content
+      .ant-skeleton-paragraph
+      > li {
+      height: 85px;
+    }
+    ul.ant-skeleton-paragraph {
+      margin-top: 0;
+      margin-block-start: 0 !important;
+    }
+  }
   .row {
-
     display: grid;
     gap: 0px;
     grid-template-columns: 1fr repeat(7, minmax(150px, 1fr));
-    
+
     padding: 10px 25px 10px 25px;
     align-items: center;
     justify-content: space-around;
@@ -115,7 +132,7 @@ export const TableWrapper = styled.div`
         display: grid;
         gap: 10px;
       }
-      &.active-row.current-row{
+      &.active-row.current-row {
         @media (max-width: 1360px) {
           grid-template-rows: repeat(5, 1fr);
         }
@@ -123,21 +140,21 @@ export const TableWrapper = styled.div`
     }
     @media (min-width: 1361px) {
       gap: 3px;
-      grid-template-columns 1.5fr repeat(7, minmax(135px, 1fr));
-      &.current-row{
+      grid-template-columns: ${gridSize}fr repeat(7, minmax(135px, 1fr));
+      &.current-row {
         grid-template-rows: repeat(2, 1fr);
       }
     }
     @media (min-width: 1439px) {
       gap: 10px;
-      grid-template-columns 1.5fr repeat(7, minmax(135px, 1fr));
-      &.current-row{
+      grid-template-columns: 1.5fr repeat(7, minmax(135px, 1fr));
+      &.current-row {
         grid-template-rows: repeat(2, 1fr);
       }
     }
     @media (min-width: 1750px) {
       gap: 15px;
-      grid-template-columns 1.5fr repeat(7, minmax(150px, 1fr));
+      grid-template-columns: 1.5fr repeat(7, minmax(150px, 1fr));
     }
   }
 `;
@@ -242,6 +259,78 @@ export const PanelWrapper = styled.div`
       align-items: center;
       justify-content: space-around;
       gap: 10px;
+    }
+  }
+`;
+export const PorcentSpan = styled.span`
+  &.green {
+    color: green;
+    svg {
+      transform: rotate(-90deg);
+      fill: green;
+    }
+  }
+  &.red {
+    color: red;
+    svg {
+      transform: rotate(90deg);
+
+      fill: red;
+    }
+  }
+  svg {
+    height: 10px;
+    margin-right: 5px;
+  }
+`;
+
+export const SortinhWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 100%;
+  height: 50px;
+  padding: 3px;
+  margin-bottom: 10px;
+  @media (max-width: 767px) {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    height: auto;
+    .left-side {
+      padding-bottom: 0;
+      width: 100%;
+      .ant-select {
+        width: 100% !important;
+      }
+    }
+  }
+  .right-side {
+    display: flex;
+    justify-content: flex-end;
+    gap: 7px;
+    max-width: 60%;
+    min-width: 50%;
+    @media (max-width: 767px) {
+      max-width: 100%;
+      justify-content: center;
+    }
+    button.btn-sort {
+      height: 30px;
+      width: 30px;
+      border-radius: 4px;
+      background: transparent;
+      border: 1px solid #3b4b7c;
+      color: #3b4b7c;
+      font-weight: 700;
+      transition: 3ms all;
+      &.active,
+      &:hover {
+        background: #3b4b7c;
+        color: white;
+      }
     }
   }
 `;

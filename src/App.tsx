@@ -8,6 +8,7 @@ import {
   setNeighborhoodList,
 } from "./lib/redux";
 import { uiInitialState } from "./constants";
+import Loader from "./components/loader";
 
 function App() {
   const dispatch = hooks.useAppDispatch();
@@ -36,7 +37,7 @@ function App() {
       const neighborhoodstitleItem = neighborhoodList?.filter(
         (item) => item.shortcode_content_id === neighborhood
       );
-      console.log(neighborhoodstitleItem);
+      // console.log(neighborhoodstitleItem);
       const neighborhoodTitleText = neighborhoodstitleItem
         ? `${neighborhoodstitleItem[0].name}`
         : uiInitialState.marketStatisticTitle;
@@ -54,7 +55,9 @@ function App() {
       <Helmet>
         <title>{marketStatisticTitle}</title>
       </Helmet>
-      {neighborhoodList === null ? null : (
+      {neighborhoodList === null ? (
+        <Loader />
+      ) : (
         <div className="ms-shortcode-sold-properties-filters">
           <Filters neighborhoodList={neighborhoodList} />
           <Table />

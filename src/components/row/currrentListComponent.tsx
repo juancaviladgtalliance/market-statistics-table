@@ -12,9 +12,12 @@ function CurrrentListComponent({
 }) {
   return (
     <CeldWrapper className={`${activeClass}`}>
-      <h3>Current Listings</h3>
-      <h4>{unitSold}</h4>
-      <p>{checkAmountZero("", variation_active, " %").message}</p>
+      <h3 style={{ fontSize: "0.7rem" }}># Current Listings</h3>
+      <h4 style={{ fontSize: "0.7rem" }}>{unitSold}</h4>
+      <h3 style={{ fontSize: "0.7rem" }}>Change from last year</h3>
+      <p style={{ fontSize: "0.7rem" }}>
+        {checkAmountZero("", variation_active, " %").message}
+      </p>
     </CeldWrapper>
   );
 }
