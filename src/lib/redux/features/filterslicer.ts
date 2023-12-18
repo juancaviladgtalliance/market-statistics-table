@@ -13,7 +13,7 @@ const initialState: initialFilters = {
   type: propertyTypes.condos.value,
   neighborhood: 0,
   style: propertyStyles.NoStyle.value,
-  price: priceRanges["0-1"].value,
+  price: priceRanges["all"].value,
   sortListing: "last_updated-desc",
   pagination: {
     current: 1,

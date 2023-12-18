@@ -87,6 +87,9 @@ export const CeldWrapper = styled.div`
   }
 `;
 export const TableWrapper = styled.div`
+  ul.ant-skeleton-paragraph li {
+    height: 85px;
+  }
   h3.ant-skeleton-title {
     display: none;
   }

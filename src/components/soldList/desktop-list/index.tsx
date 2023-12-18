@@ -4,8 +4,9 @@ import AntdTable from "../../antdTable";
 
 export default function DesktopList() {
   const { response } = hooks.useAppSelector((state) => state.soldList);
+  console.log(response);
 
   const dataWithResponse = convertDataItem(response?.items || []);
-  //console.log(dataWithResponse);
+  console.log(dataWithResponse);
   return <>{dataWithResponse && <AntdTable dataRows={dataWithResponse} />}</>;
 }

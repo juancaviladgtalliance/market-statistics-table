@@ -7,6 +7,7 @@ import MobileItem from "./mobileItem";
 
 export default function MobileList() {
   const { response } = redux.hooks.useAppSelector((state) => state.soldList);
+
   const dataWithResponse = convertDataItem(response?.items || []);
   return (
     <Styles.StylesList.mobilelistWrapper>

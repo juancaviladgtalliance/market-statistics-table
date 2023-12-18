@@ -13,6 +13,7 @@ import {
 } from "./row";
 import { TableWrapper } from "../lib/styledComponents/table";
 import { Skeleton } from "antd";
+import { priceRanges } from "../constants";
 
 const TableComponent = () => {
   const dispatch = hooks.useAppDispatch();
@@ -22,6 +23,8 @@ const TableComponent = () => {
   );
 
   const { cities, failed } = hooks.useAppSelector((state) => state.tables);
+
+  const validatePrice = price === "all" ? priceRanges["0-1"].value : price;
 
   useEffect(() => {
     if (cities.length === 0 && !failed) {
@@ -63,7 +66,7 @@ const TableComponent = () => {
               total_sold,
               variation_active,
               variation_sold,
-            } = NewProperty[price];
+            } = NewProperty[validatePrice];
             return (
               <React.Fragment key={row.id}>
                 <div className={`row${ActiveRow}`} key={row.id}>
@@ -93,9 +96,7 @@ const TableComponent = () => {
                     activeClass={activeClass}
                   />
                 </div>
-                {row.id == neighborhood && row.id === activeNeighborhood && (
-                  <NeighborhoodList rowId={row.id} />
-                )}
+                {row.id == neighborhood && <NeighborhoodList rowId={row.id} />}
               </React.Fragment>
             );
           } else if (style === "no_waterfront") {
@@ -108,7 +109,7 @@ const TableComponent = () => {
               total_sold,
               variation_active,
               variation_sold,
-            } = NoWaterFront[price];
+            } = NoWaterFront[validatePrice];
             return (
               <React.Fragment key={row.id}>
                 <div className={`row${ActiveRow}`} key={row.id}>
@@ -151,7 +152,7 @@ const TableComponent = () => {
               total_sold,
               variation_active,
               variation_sold,
-            } = WaterFront[price];
+            } = WaterFront[validatePrice];
             return (
               <React.Fragment key={row.id}>
                 <div className={`row${ActiveRow}`} key={row.id}>
@@ -194,7 +195,7 @@ const TableComponent = () => {
               total_sold,
               variation_active,
               variation_sold,
-            } = NoStyle[price];
+            } = NoStyle[validatePrice];
 
             return (
               <React.Fragment key={row.id}>

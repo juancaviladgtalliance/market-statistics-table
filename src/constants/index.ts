@@ -71,12 +71,12 @@ export const propertyStyles = {
   },
 };
 export const priceRanges: PriceRangesType = {
-  /*  all: {
+  all: {
     label: "All Ranges",
-    value: "0-1",
+    value: "all",
     minPrice: 0,
-    maxPrice: 10000000,
-  }, */
+    maxPrice: 100000000,
+  },
   "0-1": {
     label: "Up to $1 M",
     value: "0-1",

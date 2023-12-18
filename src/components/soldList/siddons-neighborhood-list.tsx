@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { hooks, soldList } from "../../lib/redux";
 import { monthRanges, priceRanges, propertyTypes } from "../../constants";
 import { getRangeDate } from "../../helpers/getRangeDate";
@@ -9,7 +8,6 @@ import PlaceholderMobile from "./placeholders/mobile";
 import PlaceholderDesktop from "./placeholders/desktop";
 import DesktopList from "./desktop-list";
 import { setPagination } from "../../lib/redux/features/filterslicer";
-import { DataData } from "../../types";
 
 export default function SiddonsNeighborhoodList({ rowId }: { rowId: number }) {
   const dispatch = hooks.useAppDispatch();
@@ -47,8 +45,8 @@ export default function SiddonsNeighborhoodList({ rowId }: { rowId: number }) {
     formdata.append("property_style", `${style}`);
     formdata.append("order", sortListing);
     formdata.append("page", pagination.current.toString());
-    formdata.append("price_min", `${priceRange.minPrice}`);
-    formdata.append("price_max", `${priceRange.maxPrice}`);
+    formdata.append("price_min", `${priceRange.minPrice.toString()}`);
+    formdata.append("price_max", `${priceRange.maxPrice.toString()}`);
 
     formdata.append("city_id", `${neighborhood}`);
     formdata.append("price", `${price}`);
@@ -56,13 +54,10 @@ export default function SiddonsNeighborhoodList({ rowId }: { rowId: number }) {
     formdata.append("close_date_start", `${start.replaceAll("-", "")}`);
     formdata.append("close_date_end", `${end.replaceAll("-", "")}`);
 
-    const { data } = await axios.post<DataData>(url, formdata, {
+    const data = fetch(url, {
+      method: "POST",
+      body: formdata,
       headers: {
-        "Content-Type": "multipart/form-data",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-        "Access-Control-Allow-Headers":
-          "Content-Type, Authorization, access-control-allow-origin",
         Authorization:
           "Basic " +
           btoa(
@@ -73,11 +68,13 @@ export default function SiddonsNeighborhoodList({ rowId }: { rowId: number }) {
       },
     });
     // console.log(data);
-
-    return data;
+    const response = (await data).json();
+    return response;
   };
   useEffect(() => {
-    fetchDataTable().then((data) => {
+    fetchDataTable().then((res) => {
+      const { data } = res;
+      console.log(data);
       dispatch(soldList.setSoldList(data));
       dispatch(
         setPagination({
@@ -90,13 +87,17 @@ export default function SiddonsNeighborhoodList({ rowId }: { rowId: number }) {
     });
   }, [range, type, style, neighborhood, price]);
   useEffect(() => {
-    fetchDataTable().then((data) => {
+    fetchDataTable().then((res) => {
+      const { data } = res;
+      console.log(data);
       dispatch(soldList.setSoldList(data));
       setLoading(false);
     });
   }, [sortListing]);
   useEffect(() => {
-    fetchDataTable().then((data) => {
+    fetchDataTable().then((res) => {
+      const { data } = res;
+      console.log(data);
       dispatch(soldList.setSoldList(data));
       setLoading(false);
     });

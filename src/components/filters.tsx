@@ -131,49 +131,26 @@ const FiltersComponent = ({
                 </div>
                 <div className="ms-item fg">
                   <label htmlFor="thepricerange">Price Range</label>
-                  {neighborhood === 0 ? (
-                    <select
-                      className="ms-select fc-select f-pricerange"
-                      name="the_pricerange"
-                      id="the_pricerange"
-                      onChange={(e) => {
-                        dispatch(setPrice(`${e.target.value}`));
-                      }}
-                    >
-                      {priceRangesOptions.map((rangeInput) => {
-                        return (
-                          <option
-                            key={rangeInput.value}
-                            value={`${rangeInput.value}`}
-                            selected={rangeInput.value == price}
-                          >
-                            {rangeInput.label}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  ) : (
-                    <select
-                      className="ms-select fc-select f-pricerange"
-                      name="the_pricerange"
-                      id="the_pricerange"
-                      onChange={(e) => {
-                        dispatch(setPrice(`${e.target.value}`));
-                      }}
-                    >
-                      <option value="all">All Prices</option>
-                      {priceRangesOptions.map((rangeInput) => {
-                        return (
-                          <option
-                            key={rangeInput.value}
-                            value={`${rangeInput.value}`}
-                          >
-                            {rangeInput.label}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  )}
+                  <select
+                    className="ms-select fc-select f-pricerange"
+                    name="the_pricerange"
+                    id="the_pricerange"
+                    onChange={(e) => {
+                      dispatch(setPrice(`${e.target.value}`));
+                    }}
+                  >
+                    {priceRangesOptions.map((rangeInput) => {
+                      return (
+                        <option
+                          key={rangeInput.value}
+                          value={`${rangeInput.value}`}
+                          selected={rangeInput.value == price}
+                        >
+                          {rangeInput.label}
+                        </option>
+                      );
+                    })}
+                  </select>
                 </div>
               </div>
 
