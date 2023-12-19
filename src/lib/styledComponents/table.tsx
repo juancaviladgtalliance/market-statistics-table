@@ -6,6 +6,7 @@ h3 {
   color: white;
   text-align: center;
   font-weight: 600;
+  font-size: 13px;
 }
 h4 {
   color: white;
@@ -23,6 +24,7 @@ h3 {
   color: #fff;
   text-align: center;
   font-weight: 600;
+  font-size: 13px;
 }
 h4 {
   color: #fff;
@@ -94,6 +96,9 @@ export const TableWrapper = styled.div`
     display: none;
   }
   .skeletonContainer {
+    .ant-skeleton.ant-skeleton-element {
+      display: block !important;
+    }
     padding: 20px;
     padding-top: 0px;
     :where(.css-dev-only-do-not-override-6j9yrn).ant-skeleton

@@ -18,7 +18,7 @@ export default function ThumbnailItem({
   const gallery = useMemo(() => {
     return images.map((image: string) => ({ src: image }));
   }, [images]);
-  // console.log(gallery);
+  console.log(gallery);
   return (
     <Styles.StylesList.thumbnailImage>
       <img

@@ -129,11 +129,11 @@ export const neighborhoodstitle: string[] = [
   "Pinecrest",
   "South Beach",
   "South Miami",
-];
+].sort();
 export const elapseTimes = ["90 days", "180 days", "One year", "Two year"];
 
 export const selectOrder: SelectOrderType[] = [
-  { value: "last_updated-desc", label: "Modified Listings" },
+  { value: "last_updated-desc", label: "Filter results" },
   { value: "price_sqft-desc", label: "Highest Price/Sq.Ft" },
   { value: "price_sqft-asc", label: "Lowest Price/Sq.Ft" },
   { value: "price-asc", label: "Lowest Price" },

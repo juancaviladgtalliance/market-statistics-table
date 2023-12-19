@@ -12,7 +12,7 @@ import {
   NeighborhoodList,
 } from "./row";
 import { TableWrapper } from "../lib/styledComponents/table";
-import { Skeleton } from "antd";
+import { Skeleton, Space } from "antd";
 import { priceRanges } from "../constants";
 
 const TableComponent = () => {
@@ -41,11 +41,21 @@ const TableComponent = () => {
     <TableWrapper>
       {cities.length === 0 && !failed ? (
         <div className="skeletonContainer">
-          <Skeleton
-            paragraph={{ rows: 10, width: "100%" }}
-            avatar={false}
-            active
-          />
+          <Space direction="vertical" style={{ minWidth: "100%" }}>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((element) => {
+              return (
+                <Skeleton.Input
+                  style={{
+                    minWidth: "100%",
+                    marginBottom: "10px",
+                    height: "85px",
+                  }}
+                  key={element}
+                  active={true}
+                />
+              );
+            })}
+          </Space>
         </div>
       ) : (
         neighborhoodRows.map((row) => {

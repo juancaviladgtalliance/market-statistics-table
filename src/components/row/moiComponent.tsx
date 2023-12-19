@@ -12,7 +12,7 @@ function MoiComponent({
     moiType = moi >= 9 ? "Buyers" : "Sellers";
   return (
     <CeldWrapper className={`${activeClass}${colorAlert}`}>
-      <h3 className="cell-title">MOI</h3>{" "}
+      <h3 className="cell-title">Months of Inventory</h3>{" "}
       <h4 className="cell-content">
         {checkAmountZero("", moi, " Months").message}{" "}
       </h4>
