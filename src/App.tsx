@@ -9,6 +9,7 @@ import {
   setNeighborhoodList,
   setPagination,
   setPrice,
+  setRanges,
   setSorting,
   setStyles,
   setTypes,
@@ -55,6 +56,9 @@ function App() {
         dispatch(
           setPagination({ ...pagination, current: parseInt(paramsObject.page) })
         );
+      }
+      if (paramsObject.range) {
+        dispatch(setRanges(parseInt(paramsObject.range)));
       }
       if (paramsObject.sortListing) {
         dispatch(setSorting(paramsObject.sortListing));
