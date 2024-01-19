@@ -42,6 +42,9 @@ export interface Condo {
 
 export interface NewProperty {
   moi: number;
+  avg_value_increase_sqft: number;
+  days_on_market: number;
+  value_increase_sqft: number;
   percent_sale_sold_price: number;
   pxsqft_sold: number;
   sqft_sold: number;

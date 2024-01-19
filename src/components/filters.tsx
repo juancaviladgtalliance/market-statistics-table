@@ -1,3 +1,5 @@
+import { useSearchParams } from "react-router-dom";
+import styled from "styled-components";
 import { CityList, PropertyTypesObject } from "../types";
 import {
   monthRanges,
@@ -6,7 +8,6 @@ import {
   propertyStyles,
   priceRanges,
 } from "../constants";
-import styled from "styled-components";
 import {
   hooks,
   setRanges,
@@ -42,8 +43,18 @@ const FiltersComponent = ({
   const typesinputs: PropertyTypesObject[] = Object.values(propertyTypes);
   const propertyStylesOptions = Object.values(propertyStyles);
   const priceRangesOptions = Object.values(priceRanges);
-
   const list = neighborhoodstitle;
+  const [, setSearchParams] = useSearchParams();
+  const setParamBy = (type: string, value: string) => {
+    setSearchParams(() => {
+      const param = new URL(document.location.href).searchParams;
+      const paramsObject = Object.fromEntries(param.entries());
+      return {
+        ...paramsObject,
+        [type]: value,
+      };
+    });
+  };
 
   const result = sortArrayByList(neighborhoodList, list);
   return (
@@ -61,6 +72,7 @@ const FiltersComponent = ({
                     id="ptype"
                     onChange={(e) => {
                       dispatch(setTypes(`${e.target.value}`));
+                      setParamBy("type", `${e.target.value}`);
                     }}
                   >
                     {typesinputs.map((typeInput) => {
@@ -77,13 +89,13 @@ const FiltersComponent = ({
                   </select>
                 </div>
                 <div className="ms-item fg">
-                  <label htmlFor="thecityid">Neighborhood</label>
+                  <label htmlFor="neghborhood">Neighborhood</label>
                   <select
-                    className="ms-select fc-select f-neighborhood"
-                    name="thecityid"
-                    id="thecityid"
+                    className="ms-select"
+                    id="neghborhood"
                     onChange={(e) => {
                       dispatch(setNeighborhood(parseInt(e.target.value)));
+                      setParamBy("neighborhood", `${parseInt(e.target.value)}`);
                     }}
                   >
                     <option value="0">Select a Neighborhood</option>
@@ -113,6 +125,7 @@ const FiltersComponent = ({
                       id="thestyle"
                       onChange={(e) => {
                         dispatch(setStyles(`${e.target.value}`));
+                        setParamBy("style", `${e.target.value}`);
                       }}
                     >
                       {propertyStylesOptions.map((typeInput) => {
@@ -137,6 +150,7 @@ const FiltersComponent = ({
                     id="the_pricerange"
                     onChange={(e) => {
                       dispatch(setPrice(`${e.target.value}`));
+                      setParamBy("price", `${e.target.value}`);
                     }}
                   >
                     {priceRangesOptions.map((rangeInput) => {
@@ -166,7 +180,10 @@ const FiltersComponent = ({
                           value={rangeInput.value}
                           className="f-interval-date"
                           checked={range === rangeInput.value}
-                          onChange={() => dispatch(setRanges(rangeInput.value))}
+                          onChange={() => {
+                            dispatch(setRanges(rangeInput.value));
+                            setParamBy("range", `${rangeInput.value}`);
+                          }}
                         />
                         <label htmlFor={`${rangeInput.value}`}>
                           {rangeInput.label}

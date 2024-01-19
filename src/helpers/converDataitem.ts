@@ -1,7 +1,7 @@
 import { Item, ItemProps } from "../types";
 
 export default function convertDataItem(items: Item[]) {
-  console.log(items);
+  //console.log(items);
   const dataWithResponse: ItemProps[] | undefined = items.map((item) => {
     return {
       sysid: item.sysid,

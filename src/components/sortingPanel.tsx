@@ -1,9 +1,11 @@
 import { Select } from "antd";
 import { paginationList } from "../helpers/paginationList";
 import { hooks } from "../lib/redux";
-import { setPagination, setSorting } from "../lib/redux/features/filterslicer";
+import { setSorting } from "../lib/redux/features/filterslicer";
 import { table } from "../lib/styledComponents";
 import { selectOrder } from "../constants";
+import { PaginationPanel } from "./paginationPanel";
+import { useSearchParams } from "react-router-dom";
 
 export default function SortingPanel() {
   const dispatch = hooks.useAppDispatch();
@@ -11,7 +13,22 @@ export default function SortingPanel() {
     (state) => state.filters
   );
   const ListItems = paginationList(pagination.total);
-  const handlerSorting = (value: string) => dispatch(setSorting(value));
+  const [, setSearchParams] = useSearchParams();
+  const setParamBy = (type: string, value: string) => {
+    setSearchParams(() => {
+      const param = new URL(document.location.href).searchParams;
+      const paramsObject = Object.fromEntries(param.entries());
+      return {
+        ...paramsObject,
+        [type]: value,
+      };
+    });
+  };
+
+  const handlerSorting = (value: string) => {
+    dispatch(setSorting(value));
+    setParamBy("sortListing", value);
+  };
   return (
     <table.SortinhWrapper>
       <div className="left-side">
@@ -24,23 +41,7 @@ export default function SortingPanel() {
           value={sortListing}
         />
       </div>
-      <div className="right-side">
-        {ListItems.map((button: number) => {
-          return (
-            <button
-              key={button}
-              onClick={() =>
-                dispatch(setPagination({ ...pagination, current: button }))
-              }
-              className={`btn-sort${
-                pagination.current == button ? " active" : ""
-              }`}
-            >
-              {button}
-            </button>
-          );
-        })}
-      </div>
+      <PaginationPanel ListItems={ListItems} />
     </table.SortinhWrapper>
   );
 }

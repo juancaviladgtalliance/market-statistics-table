@@ -41,6 +41,12 @@ const aligGlobal = `flex-direction: column;align-items: center; justify-content:
 export const CeldWrapper = styled.div`
   border: 1px solid black;
   padding: 7px 15px 7px 15px;
+  .red {
+    color: #ffa5a5;
+  }
+  .green {
+    color: #00ff00;
+  }
   ${aligGlobal}
   font-size: ${fontSize};
   text-align: center;
@@ -148,21 +154,21 @@ export const TableWrapper = styled.div`
     }
     @media (min-width: 1361px) {
       gap: 3px;
-      grid-template-columns: ${gridSize}fr repeat(7, minmax(135px, 1fr));
+      grid-template-columns: ${gridSize}fr repeat(8, minmax(135px, 1fr));
       &.current-row {
         grid-template-rows: repeat(2, 1fr);
       }
     }
     @media (min-width: 1439px) {
       gap: 10px;
-      grid-template-columns: 1.5fr repeat(7, minmax(135px, 1fr));
+      grid-template-columns: 1.5fr repeat(8, minmax(135px, 1fr));
       &.current-row {
         grid-template-rows: repeat(2, 1fr);
       }
     }
     @media (min-width: 1750px) {
       gap: 15px;
-      grid-template-columns: 1.5fr repeat(7, minmax(150px, 1fr));
+      grid-template-columns: 1.5fr repeat(8, minmax(150px, 1fr));
     }
   }
 `;
@@ -302,7 +308,6 @@ export const SortinhWrapper = styled.div`
   padding: 3px;
   margin-bottom: 10px;
   @media (max-width: 767px) {
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 8px;

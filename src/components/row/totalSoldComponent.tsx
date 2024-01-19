@@ -1,4 +1,5 @@
 import { checkAmountZero } from "../../helpers/checkAmountZero";
+import { checkPositiveNegative } from "../../helpers/checkpositivenegative";
 import { hooks } from "../../lib/redux";
 import { CeldWrapper } from "../../lib/styledComponents/table";
 
@@ -20,9 +21,12 @@ function TotalSoldComponent({
         {checkAmountZero("", totalSold, "").message}
       </h4>
       <h3 style={{ fontSize: "0.7rem" }}>Change from last year</h3>
-      <p style={{ fontSize: "0.7rem" }}>
-        {checkAmountZero("", variation_sold, " %").message}
-      </p>
+      <p
+        style={{ fontSize: "0.7rem" }}
+        dangerouslySetInnerHTML={{
+          __html: checkPositiveNegative("", variation_sold, " %").message,
+        }}
+      />
     </CeldWrapper>
   );
 }

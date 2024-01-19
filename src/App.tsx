@@ -5,7 +5,13 @@ import { Helmet } from "react-helmet";
 import {
   hooks,
   setMmarketStatisticTitle,
+  setNeighborhood,
   setNeighborhoodList,
+  setPagination,
+  setPrice,
+  setSorting,
+  setStyles,
+  setTypes,
 } from "./lib/redux";
 import { uiInitialState } from "./constants";
 import Loader from "./components/loader";
@@ -15,13 +21,46 @@ function App() {
   const { marketStatisticTitle, neighborhoodList } = hooks.useAppSelector(
     (state) => state.ius
   );
-  const { neighborhood } = hooks.useAppSelector((state) => state.filters);
+  const { neighborhood, pagination } = hooks.useAppSelector(
+    (state) => state.filters
+  );
 
   const cities: string = import.meta.env?.DEV
     ? import.meta.env.VITE_DEV_URL_CITIES
     : import.meta.env.VITE_PROD_URL_CITIES;
 
   const { data } = useFetch(cities);
+
+  // query for testing: /?type=condo&neighborhood=474&style=new&price=all&range=612&sortListing=price_sqft-asc&page=1
+  const getParams = () => {
+    const param = new URL(document.location.href).searchParams;
+    const paramsObject = Object.fromEntries(param.entries());
+    console.log(paramsObject);
+    if (Object.keys(paramsObject).length > 0) {
+      if (paramsObject.type) {
+        dispatch(setTypes(paramsObject.type));
+      }
+      if (paramsObject.neighborhood) {
+        dispatch(setNeighborhood(parseInt(paramsObject.neighborhood)));
+      }
+      if (paramsObject.style) {
+        dispatch(setStyles(paramsObject.style));
+      }
+      if (paramsObject.price) {
+        dispatch(setPrice(paramsObject.price));
+      }
+      if (paramsObject.page) {
+        // not working for some reason
+        console.log(paramsObject.page);
+        dispatch(
+          setPagination({ ...pagination, current: parseInt(paramsObject.page) })
+        );
+      }
+      if (paramsObject.sortListing) {
+        dispatch(setSorting(paramsObject.sortListing));
+      }
+    }
+  };
   useEffect(() => {
     // console.log(data);
     if (neighborhoodList === null && data != null) {
@@ -31,6 +70,9 @@ function App() {
     }
     // console.log(neighborhoodList);
   }, [data]);
+  useEffect(() => {
+    getParams();
+  }, []);
   useEffect(() => {
     // console.log(neighborhood);
     if (neighborhood !== 0) {

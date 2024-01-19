@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { elapseTimes, monthRanges } from "../../constants";
 import { TitleWrapper } from "../../lib/styledComponents/table";
-import { hooks, setActiveNeighborhood } from "../../lib/redux";
+import { hooks, setActiveNeighborhood, setNeighborhood } from "../../lib/redux";
+import { useSearchParams } from "react-router-dom";
 
 function TitleComponent({
   rowId,
@@ -14,8 +15,10 @@ function TitleComponent({
 }) {
   const dispatch = hooks.useAppDispatch();
   const [elapsed, setElapsed] = useState("");
-  const { activeNeighborhood } = hooks.useAppSelector((state) => state.ius);
-  const isOpen = activeNeighborhood === rowId ? " open" : "";
+  const [, setSearchParams] = useSearchParams();
+
+  const { neighborhood } = hooks.useAppSelector((state) => state.filters);
+  const isOpen = neighborhood === rowId ? " open" : "";
   useEffect(() => {
     switch (range) {
       case `${monthRanges[6].value}`:
@@ -29,19 +32,37 @@ function TitleComponent({
         break;
     }
   }, [range]);
+
+  const ActiveButton = () => {
+    if (neighborhood !== rowId) {
+      dispatch(setActiveNeighborhood(rowId));
+    } else {
+      dispatch(setActiveNeighborhood(0));
+    }
+  };
+  const setNeighborhoodParam = (value: number) => {
+    setSearchParams(() => {
+      const param = new URL(document.location.href).searchParams;
+      const paramsObject = Object.fromEntries(param.entries());
+      return {
+        ...paramsObject,
+        neighborhood: value.toString(),
+      };
+    });
+  };
+  const handlerNeighborhoodClick = () => {
+    if (rowId == neighborhood) {
+      dispatch(setNeighborhood(0));
+      setNeighborhoodParam(0);
+    } else {
+      dispatch(setNeighborhood(rowId));
+      setNeighborhoodParam(rowId);
+    }
+  };
   return (
-    <TitleWrapper
-      className="titlecomponent"
-      onClick={() => {
-        if (activeNeighborhood !== rowId) {
-          dispatch(setActiveNeighborhood(rowId));
-        } else {
-          dispatch(setActiveNeighborhood(0));
-        }
-      }}
-    >
+    <TitleWrapper className="titlecomponent">
       <div className="button-wrapper">
-        <button className={`${isOpen}`}>
+        <button className={`${isOpen}`} onClick={ActiveButton}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="1em"
@@ -51,8 +72,12 @@ function TitleComponent({
           </svg>
         </button>
       </div>
-      <h3>{title}</h3>
-      <h4>View {elapsed} sales</h4>
+      <h3 onClick={handlerNeighborhoodClick} style={{ cursor: "pointer" }}>
+        {title}
+      </h3>
+      <h4 onClick={handlerNeighborhoodClick} style={{ cursor: "pointer" }}>
+        View {elapsed} sales
+      </h4>
     </TitleWrapper>
   );
 }

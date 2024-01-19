@@ -12,7 +12,7 @@ function AvgComponent({
   return (
     <CeldWrapper className={`${activeClass} avg-item`}>
       <h3>AVG $ / SQFT</h3>
-      <h4>{checkAmountZero("", avg, "").message} </h4>
+      <h4>{checkAmountZero("$", Math.round(avg), "").message} </h4>
     </CeldWrapper>
   );
 }

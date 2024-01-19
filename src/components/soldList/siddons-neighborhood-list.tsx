@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
-import { hooks, soldList } from "../../lib/redux";
-import { monthRanges, priceRanges, propertyTypes } from "../../constants";
+import { hooks, soldList, setMmarketStatisticTitle } from "../../lib/redux";
+import {
+  monthRanges,
+  priceRanges,
+  propertyTypes,
+  uiInitialState,
+} from "../../constants";
 import { getRangeDate } from "../../helpers/getRangeDate";
 import { StylesList } from "../../lib/styledComponents";
 import MobileList from "./mobile-list/index";
@@ -13,8 +18,43 @@ export default function SiddonsNeighborhoodList({ rowId }: { rowId: number }) {
   const dispatch = hooks.useAppDispatch();
   const { range, type, style, neighborhood, price, pagination, sortListing } =
     hooks.useAppSelector((state) => state.filters);
+  const { marketStatisticTitle, neighborhoodList } = hooks.useAppSelector(
+    (state) => state.ius
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const active = rowId === neighborhood ? " active" : "";
+  const getPaginationParams = () => {
+    const param = new URL(document.location.href).searchParams;
+    const paramsObject = Object.fromEntries(param.entries());
+    return paramsObject.page ? parseInt(paramsObject.page) : 1;
+  };
+  const setTitleMarketing = (neighborhoodID: number) => {
+    const param = new URL(document.location.href).searchParams;
+    const paramsObject = Object.fromEntries(param.entries());
+    if (paramsObject.neighborhood) {
+      const neighborhoodstitleItem = neighborhoodList?.filter(
+        (item) =>
+          item.shortcode_content_id === parseInt(paramsObject.neighborhood)
+      );
+      //console.log(uiInitialState.marketStatisticTitle);
+      if (neighborhoodstitleItem!.length > 0) {
+        const setTitleByParam = neighborhoodstitleItem
+          ? `${neighborhoodstitleItem[0].name || ""}`
+          : marketStatisticTitle;
+        dispatch(setMmarketStatisticTitle(setTitleByParam));
+      } else {
+        dispatch(setMmarketStatisticTitle(uiInitialState.marketStatisticTitle));
+      }
+    } else {
+      const neighborhoodstitleItem = neighborhoodList?.filter(
+        (item) => item.shortcode_content_id === neighborhoodID
+      );
+      const setTitleByParam = neighborhoodstitleItem
+        ? `${neighborhoodstitleItem[0].name || ""}`
+        : marketStatisticTitle;
+      dispatch(setMmarketStatisticTitle(setTitleByParam));
+    }
+  };
   const fetchDataTable = async () => {
     setLoading(true);
     const url =
@@ -37,6 +77,7 @@ export default function SiddonsNeighborhoodList({ rowId }: { rowId: number }) {
       closeDateInterval.end
     );
 
+    //  console.log(typeof pagination.current);
     // setting form data
     const formdata = new FormData();
     formdata.append("action", import.meta.env.VITE_ACTION_KEY);
@@ -74,22 +115,27 @@ export default function SiddonsNeighborhoodList({ rowId }: { rowId: number }) {
   useEffect(() => {
     fetchDataTable().then((res) => {
       const { data } = res;
-      console.log(data);
+
+      //  console.log(data);
       dispatch(soldList.setSoldList(data));
       dispatch(
         setPagination({
           ...pagination,
-          current: 1,
+          current: getPaginationParams(),
           total: data.response?.pagination.total_pages_count,
         })
       );
+      if (neighborhood !== 0) {
+        console.log(neighborhood);
+        setTitleMarketing(neighborhood);
+      }
       setLoading(false);
     });
   }, [range, type, style, neighborhood, price]);
   useEffect(() => {
     fetchDataTable().then((res) => {
       const { data } = res;
-      console.log(data);
+      //     console.log(data);
       dispatch(soldList.setSoldList(data));
       setLoading(false);
     });
@@ -97,7 +143,7 @@ export default function SiddonsNeighborhoodList({ rowId }: { rowId: number }) {
   useEffect(() => {
     fetchDataTable().then((res) => {
       const { data } = res;
-      console.log(data);
+      //   console.log(data);
       dispatch(soldList.setSoldList(data));
       setLoading(false);
     });

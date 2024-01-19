@@ -1,4 +1,4 @@
-import { checkAmountZero } from "../../helpers/checkAmountZero";
+import { checkPositiveNegative } from "../../helpers/checkpositivenegative";
 import { CeldWrapper } from "../../lib/styledComponents/table";
 
 function CurrrentListComponent({
@@ -15,9 +15,12 @@ function CurrrentListComponent({
       <h3 style={{ fontSize: "0.7rem" }}># Current Listings</h3>
       <h4 style={{ fontSize: "0.7rem" }}>{unitSold}</h4>
       <h3 style={{ fontSize: "0.7rem" }}>Change from last year</h3>
-      <p style={{ fontSize: "0.7rem" }}>
-        {checkAmountZero("", variation_active, " %").message}
-      </p>
+      <p
+        style={{ fontSize: "0.7rem" }}
+        dangerouslySetInnerHTML={{
+          __html: checkPositiveNegative("", variation_active, " %").message,
+        }}
+      />
     </CeldWrapper>
   );
 }

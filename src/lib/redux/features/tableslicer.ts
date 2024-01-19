@@ -7,17 +7,21 @@ import { neighborhoodstitle } from "../../../constants";
 export const getAsyncCities = createAsyncThunk(
   "tables/getAsyncCities",
   async () => {
-    const url = import.meta.env.VITE_URL_NEIGHBORHOODS;
+    const url = import.meta.env?.DEV
+        ? import.meta.env.VITE_DEV_URL_NEIGHBORHOODS
+        : import.meta.env.VITE_URL_NEIGHBORHOODS,
+      user = import.meta.env?.DEV
+        ? import.meta.env.VITE__DEV_USERNAME
+        : import.meta.env.VITE_USERNAME,
+      pass = import.meta.env?.DEV
+        ? import.meta.env.VITE_DEV_PASSWORD
+        : import.meta.env.VITE_PASSWORD;
     const controller = new AbortController();
-
+    // console.log(user, pass);
     const response = await fetch(url, {
       signal: controller.signal,
       headers: {
-        Authorization:
-          "Basic " +
-          btoa(
-            import.meta.env.VITE_USERNAME + ":" + import.meta.env.VITE_PASSWORD
-          ),
+        Authorization: "Basic " + btoa(user + ":" + pass),
       },
     });
 

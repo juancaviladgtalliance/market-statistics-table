@@ -7,13 +7,14 @@ import {
   TotalSoldComponent,
   MoiComponent,
   AvgComponent,
-  AvgPropertyComponent,
   RatioComponent,
   NeighborhoodList,
 } from "./row";
 import { TableWrapper } from "../lib/styledComponents/table";
 import { Skeleton, Space } from "antd";
 import { priceRanges } from "../constants";
+import DaysOnMarket from "./row/daysOnMarket";
+import IncraseValue from "./row/incraseValue";
 
 const TableComponent = () => {
   const dispatch = hooks.useAppDispatch();
@@ -63,19 +64,22 @@ const TableComponent = () => {
           const currentRange = type === "condo" ? Condo : Home;
           const { NoWaterFront, WaterFront, NoStyle, NewProperty } =
             currentRange;
-
+          // console.log(row);
           const activeClass = row.id === activeNeighborhood ? " active" : "";
           const ActiveRow = row.id === activeNeighborhood ? " active-row" : "";
+
           if (style === "new") {
             const {
               moi,
               percent_sale_sold_price,
               pxsqft_sold,
-              sqft_sold,
               total_active,
               total_sold,
               variation_active,
               variation_sold,
+
+              days_on_market,
+              value_increase_sqft,
             } = NewProperty[validatePrice];
             return (
               <React.Fragment key={row.id}>
@@ -91,8 +95,8 @@ const TableComponent = () => {
                     ratio={percent_sale_sold_price}
                     activeClass={activeClass}
                   />
-                  <AvgPropertyComponent
-                    avgProp={sqft_sold}
+                  <DaysOnMarket
+                    daysOnMarket={days_on_market}
                     activeClass={activeClass}
                   />
                   <TotalSoldComponent
@@ -105,6 +109,10 @@ const TableComponent = () => {
                     unitSold={total_active}
                     activeClass={activeClass}
                   />
+                  <IncraseValue
+                    incraseValue={value_increase_sqft}
+                    activeClass={activeClass}
+                  />
                 </div>
                 {row.id == neighborhood && <NeighborhoodList rowId={row.id} />}
               </React.Fragment>
@@ -114,11 +122,12 @@ const TableComponent = () => {
               moi,
               percent_sale_sold_price,
               pxsqft_sold,
-              sqft_sold,
               total_active,
               total_sold,
               variation_active,
               variation_sold,
+              value_increase_sqft,
+              days_on_market,
             } = NoWaterFront[validatePrice];
             return (
               <React.Fragment key={row.id}>
@@ -134,8 +143,8 @@ const TableComponent = () => {
                     ratio={percent_sale_sold_price}
                     activeClass={activeClass}
                   />
-                  <AvgPropertyComponent
-                    avgProp={sqft_sold}
+                  <DaysOnMarket
+                    daysOnMarket={days_on_market}
                     activeClass={activeClass}
                   />
                   <TotalSoldComponent
@@ -148,6 +157,10 @@ const TableComponent = () => {
                     unitSold={total_active}
                     activeClass={activeClass}
                   />
+                  <IncraseValue
+                    incraseValue={value_increase_sqft}
+                    activeClass={activeClass}
+                  />
                 </div>
                 {row.id == neighborhood && <NeighborhoodList rowId={row.id} />}
               </React.Fragment>
@@ -157,12 +170,14 @@ const TableComponent = () => {
               moi,
               percent_sale_sold_price,
               pxsqft_sold,
-              sqft_sold,
               total_active,
               total_sold,
               variation_active,
               variation_sold,
+              value_increase_sqft,
+              days_on_market,
             } = WaterFront[validatePrice];
+
             return (
               <React.Fragment key={row.id}>
                 <div className={`row${ActiveRow}`} key={row.id}>
@@ -177,8 +192,8 @@ const TableComponent = () => {
                     ratio={percent_sale_sold_price}
                     activeClass={activeClass}
                   />
-                  <AvgPropertyComponent
-                    avgProp={sqft_sold}
+                  <DaysOnMarket
+                    daysOnMarket={days_on_market}
                     activeClass={activeClass}
                   />
                   <TotalSoldComponent
@@ -191,6 +206,10 @@ const TableComponent = () => {
                     activeClass={activeClass}
                     unitSold={total_active}
                   />
+                  <IncraseValue
+                    incraseValue={value_increase_sqft}
+                    activeClass={activeClass}
+                  />
                 </div>
                 {row.id == neighborhood && <NeighborhoodList rowId={row.id} />}
               </React.Fragment>
@@ -200,11 +219,12 @@ const TableComponent = () => {
               moi,
               percent_sale_sold_price,
               pxsqft_sold,
-              sqft_sold,
               total_active,
               total_sold,
               variation_active,
               variation_sold,
+              value_increase_sqft,
+              days_on_market,
             } = NoStyle[validatePrice];
 
             return (
@@ -221,8 +241,8 @@ const TableComponent = () => {
                     ratio={percent_sale_sold_price}
                     activeClass={activeClass}
                   />
-                  <AvgPropertyComponent
-                    avgProp={sqft_sold}
+                  <DaysOnMarket
+                    daysOnMarket={days_on_market}
                     activeClass={activeClass}
                   />
                   <TotalSoldComponent
@@ -233,6 +253,10 @@ const TableComponent = () => {
                   <CurrrentListComponent
                     variation_active={variation_active}
                     unitSold={total_active}
+                    activeClass={activeClass}
+                  />
+                  <IncraseValue
+                    incraseValue={value_increase_sqft}
                     activeClass={activeClass}
                   />
                 </div>
