@@ -53,7 +53,7 @@ const columns = [
       text == "" || text == null ? (
         <Skeleton.Input style={styleSkeleton} active={true} />
       ) : (
-        <a href={record.slug}>{`${priceFormat(parseFloat(text))}/ Sq.Ft.`}</a>
+        <a href={record.slug}>{`$${text}/ Sq.Ft.`}</a>
       ),
   },
   {
