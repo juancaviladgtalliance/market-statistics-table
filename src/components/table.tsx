@@ -12,7 +12,7 @@ import {
 } from "./row";
 import { TableWrapper } from "../lib/styledComponents/table";
 import { Skeleton, Space } from "antd";
-import { priceRanges } from "../constants";
+// import { priceRanges } from "../constants";
 import DaysOnMarket from "./row/daysOnMarket";
 import IncraseValue from "./row/incraseValue";
 
@@ -25,7 +25,9 @@ const TableComponent = () => {
 
   const { cities, failed } = hooks.useAppSelector((state) => state.tables);
 
-  const validatePrice = price === "all" ? priceRanges["0-1"].value : price;
+  // * validatePrice constant was replaced
+  // const validatePrice = price === "all" ? priceRanges["0-1"].value : price;
+  const validatePrice = price === "all" ? "0+" : price;
 
   useEffect(() => {
     if (cities.length === 0 && !failed) {
@@ -64,7 +66,12 @@ const TableComponent = () => {
           const currentRange = type === "condo" ? Condo : Home;
           const { NoWaterFront, WaterFront, NoStyle, NewProperty } =
             currentRange;
-          // console.log(row);
+          // console.log(type, row.name, {
+          //   WaterFront,
+          //   NewProperty,
+          //   NoWaterFront,
+          //   NoStyle,
+          // });
           const activeClass = row.id === activeNeighborhood ? " active" : "";
           const ActiveRow = row.id === activeNeighborhood ? " active-row" : "";
 
